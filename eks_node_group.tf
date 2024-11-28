@@ -1,6 +1,6 @@
 resource "aws_instance" "kubectl-server" {
-  ami                         = "ami-063e1495af50e6fd5"
-  key_name                    = "ubuntusingapore"
+  ami                         = "ami-0dee22c13ea7a9a67"
+  key_name                    = "irfan_pem_key"
   instance_type               = "t2.micro"
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public-1.id
@@ -18,11 +18,11 @@ resource "aws_eks_node_group" "node-grp" {
   node_role_arn   = aws_iam_role.worker.arn
   subnet_ids      = [aws_subnet.public-1.id, aws_subnet.public-2.id]
   capacity_type   = "ON_DEMAND"
-  disk_size       = "20"
-  instance_types  = ["t2.small"]
+  #disk_size       = "10"
+  instance_types  = ["t2.micro"]
 
   remote_access {
-    ec2_ssh_key               = "ubuntusingapore"
+    ec2_ssh_key               = "irfan_pem_key"
     source_security_group_ids = [aws_security_group.allow_tls.id]
   }
 
@@ -30,7 +30,7 @@ resource "aws_eks_node_group" "node-grp" {
 
   scaling_config {
     desired_size = 2
-    max_size     = 3
+    max_size     = 2
     min_size     = 1
   }
 
