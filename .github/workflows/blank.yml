@@ -44,4 +44,4 @@ jobs:
       - name: Terraform plan
         run: terraform plan
       - name: Terraform Destroy
-        run: terraform apply --auto-approve
+        run: terraform destroy --auto-approve
